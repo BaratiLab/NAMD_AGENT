@@ -1,0 +1,16 @@
+# Generates a system with LPS using a variety of solvent options
+- label: custom solvent + membrane_only w/ LPS
+  parent: multicomp_bilayer
+  base: components/basic
+  solvent_tests: [water, water+ions]
+  components:
+    tolu:
+      type: solvent
+      density: 870
+  XY: 30
+  Z: 25
+  lipids:
+    upper:
+      lpsa: 1
+    lower:
+      ddpc: 1

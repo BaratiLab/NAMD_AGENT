@@ -1,0 +1,167 @@
+# this file uses mostly default options to test different component types
+- label: solvated
+  parent: multicomp_solution
+  solvent_tests: [water, water+ions]
+  components:
+    1ubq:
+      type: solvated
+      count: 3
+    1vii:
+      type: solvated
+      count: 3
+    3gb1:
+      type: solvated
+      count: 3
+  XYZ: 60
+- label: solvated + custom_solvent
+  parent: multicomp_solution
+  solvent_tests: [water, ions, water+ions, None]
+  components:
+    1ubq:
+      type: solvated
+      count: 3
+    meoh:
+      type: solvent
+      density: 792
+    nbut:
+      type: solvent
+      density: 810
+    tolu:
+      type: solvent
+      density: 870
+  XYZ: 60
+- label: solvated + membrane_only
+  parent: multicomp_bilayer
+  solvent_tests: [water, water+ions]
+  components:
+    1ubq:
+      type: solvated
+      count: 3
+    1vii:
+      type: solvated
+      count: 3
+    3gb1:
+      type: solvated
+      count: 3
+  XY: 50
+  Z: 50
+  lipids:
+    upper:
+      ddpc: 1
+    lower:
+      ddpc: 1
+- label: membrane_only + custom_solvent
+  parent: multicomp_bilayer
+  psf_validation:
+    target: step3.3_custom_box.psf
+  solvent_tests: [water, water+ions]
+  components:
+    tolu:
+      type: solvent
+      density: 870
+  XY: 50
+  Z: 25
+  lipids:
+    upper:
+      ddpc: 1
+    lower:
+      ddpc: 1
+- label: membrane + custom_solvent
+  parent: multicomp_bilayer
+  solvent_tests: [water, water+ions]
+  components:
+    2hac:
+      type: membrane
+      count: 3
+    tolu:
+      type: solvent
+      density: 870
+  XY: 50
+  Z: 25
+  lipids:
+    upper:
+      ddpc: 1
+    lower:
+      ddpc: 1
+- label: periodic_impatch
+  parent: multicomp_periodic
+  solvent_tests: [None]
+  PBCX: 82.464
+  PBCY: 98.3614007
+  components:
+    kn_sheet:
+      type: periodic
+      pbc_z: 36
+      files: kn_sheet.image.psf
+- label: periodic_impatch and exclude length
+  parent: multicomp_periodic
+  solvent_tests: [water+ions, water, ions, None]
+  PBCX: 82.464
+  PBCY: 98.3614007
+  components:
+    kn_sheet:
+      type: periodic
+      pbc_z: 36
+      exclude_length: 5
+      files: kn_sheet.image.psf
+- label: periodic_impatch + solvated
+  parent: multicomp_periodic
+  solvent_tests: [water+ions, water, ions, None]
+  PBCX: 82.464
+  PBCY: 98.3614007
+  Z: 30
+  components:
+    kn_sheet:
+      type: periodic
+      exclude_length: 5
+      pbc_z: 36
+      files: kn_sheet.image.psf
+    1ubq:
+      type: solvated
+      count: 3
+- label: periodic_noimpatch + solvated
+  parent: multicomp_periodic
+  solvent_tests: [water+ions]
+  PBCX: 56.7
+  PBCY: 68.85
+  components:
+    alu_sheet:
+      type: periodic
+      exclude_length: 10
+      pbc_z: 12.15
+    1ubq:
+      type: solvated
+      count: 3
+- label: periodic_impatch + custom_solvent
+  parent: multicomp_periodic
+  solvent_tests: [water+ions, water, ions, None]
+  PBCX: 82.464
+  PBCY: 98.3614007
+  Z: 30
+  components:
+    kn_sheet:
+      type: periodic
+      exclude_length: 5
+      pbc_z: 36
+      files: kn_sheet.image.psf
+    tolu:
+      type: solvent
+      density: 870
+- label: periodic_impatch + solvated + custom_solvent
+  parent: multicomp_periodic
+  solvent_tests: [water+ions, water, ions, None]
+  PBCX: 82.464
+  PBCY: 98.3614007
+  Z: 30
+  components:
+    kn_sheet:
+      type: periodic
+      exclude_length: 5
+      pbc_z: 36
+      files: kn_sheet.image.psf
+    tolu:
+      type: solvent
+      density: 870
+    1ubq:
+      type: solvated
+      count: 3

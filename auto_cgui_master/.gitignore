@@ -1,0 +1,11 @@
+__pycache__/*
+.*.swp
+*.log
+*.xz
+*.tgz
+*.gz
+*.bak
+*.txt
+charmm-gui-*
+config.yml
+www

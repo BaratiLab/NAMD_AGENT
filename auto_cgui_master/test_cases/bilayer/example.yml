@@ -1,0 +1,17 @@
+- label: OmpLA PROA in E.coli outer membrane (bad orientation, small box)
+  pdb: 1qd5.pdb
+  pdb_orientation: True
+  XY: 35
+  water_thickness: 17.5
+  ion_type: CaCl2
+  ion_conc: 0.15
+  lipids:
+    lower:
+      pope: 90
+      popg: 10
+    upper:
+      pope: 90
+      popg: 10
+  input: namd
+  hmr: true
+  temperature: 310.15

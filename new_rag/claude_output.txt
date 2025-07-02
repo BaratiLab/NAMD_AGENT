@@ -1,0 +1,1 @@
+This query cannot be answered from the given context, as it does not contain information about using the protein 1UBQ with KCl as the ion type, or mention anything about not adjusting the PDB orientation.

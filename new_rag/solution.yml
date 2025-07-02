@@ -1,0 +1,7 @@
+- label: 1UBQ solution system
+  pdb: 1ubq.pdb
+  ion_type: NaCl
+  ion_conc: 0.15
+  input: namd
+  hmr: true
+  temperature: 300

@@ -1,0 +1,1162 @@
+#solution builder example yml files
+
+#this file uses mostly default options to test different component types
+- label: 1UBQ in physiological solution
+  pdb: 1ubq.pdb
+  ion_type: NaCl
+  ion_method: mc
+  input: openmm
+  hmr: true
+
+
+- label: 1UBQ in physiological solution
+  pdb: 1ubq.pdb
+  ion_type: NaCl
+  ion_placement: mc
+  input: namd
+  hmr: true
+  temperature: 310.15
+  
+  
+- label: 1UBQ with two staples in solution
+  staples:
+    - RMETA3 PROA 1 PROA 3
+    - META5 PROA 25 PROA 29
+  pdb: 1ubq.pdb
+  input: openmm
+  hmr: True
+- label: 186L modified
+  pdb: 186l_modified.charmm
+  ligand: ligands/basic
+  chains:
+    - HETA
+    - HETB
+    - HETC
+    - HETD
+    - WATA
+  hcr:
+    - CLA CLA
+    - HED charmm
+    - LIG ctop_upload
+- label: 2OI0_modified parameterized
+  pdb: 2oi0_modified.pdb
+  ligand: ligands/basic
+  chains:
+    - HETA
+  hcr:
+    - LIG param
+- label: solvation 5JY6
+  pdb: 5jy6.pdb
+  ligand: ligands/basic
+  chains:
+    - HETA
+    - HETB
+    - HETC
+    - HETD
+    - HETE
+    - HETF
+    - HETG
+    - HETH
+    - WATA
+    - WATB
+    - WATC
+    - WATD
+  # resname charmm-name
+  hcr:
+    - NAD NAD
+- label: solvation 4HG6
+  pdb: 4hg6.pdb
+  ligand: ligands/basic
+  # chain1 resid1 chain2 resid2
+  ssbonds:
+    - PROB 163 PROB 430
+- label: 1KDX with terminal patching and phosphorylation
+  pdb: 1kdx.pdb
+  phosphorylation:
+    - PROB SER 133 SP1
+  input: openmm
+  hmr: true
+- label: 5TCT with two scml
+  pdb: 5tct.pdb
+  ligand: ligands/basic
+  chains:
+    - PROB
+    - PROC
+    - PROD
+    - PROE
+    - PROF
+    - DNAB
+    - HETA
+    - HETB
+    - HETE
+  hcr:
+    - ADP ADP
+    - MN ZN2
+  input: openmm
+  hmr: true
+
+
+#bilayer membrane builder example yml files
+
+- label: OmpLA PROA in E.coli outer membrane
+  pdb: 1qd5.pdb
+  pdb_orientation: true
+  XY: 50
+  water_thickness: 17.5
+  ion_type: CaCl2
+  ion_conc: 0.15
+  lipids:
+    lower:
+      pope: 90
+      popg: 10
+    upper:
+      pope: 90
+      popg: 10
+  input: namd
+  hmr: true
+  temperature: 310.15
+
+# this file uses mostly default options to test different component types
+- label: 2OMF with spin labeling in POPC
+  pdb: 2omf.pdb
+  mts_nitrides:
+    - CYR1 PROA GLU 29
+    - CYR1 PROA GLY 72
+  bios:
+  pdb_orientation: True
+  XY: 100
+  lipids:
+    lower:
+      popc: 1
+    upper:
+      popc : 1
+  input: openmm
+  hmr: True
+  temperature: 310.15
+
+- label: 2HAC in bilayer with 2:1 DOPC and Cholesterol
+  pdb: 2hac.cif
+  orient_vector:
+    - PROA ASP -3
+    - PROA ARG 26
+  XY: 40
+  ion_type: KCl
+  ion_conc: 0.15
+  lipids:
+    lower:
+      chl1: 1
+      dopc: 2
+    upper:
+      chl1: 1
+      dopc: 2
+  input: openmm
+  hmr: True
+  temperature: 310.15
+
+- label: Glycoglycerolipid and Ganglio-series bilayer
+  parent: membrane_only.yml
+  size_method: nlipid
+  water_thickness: 40
+  lipids:
+    lower:
+      chl1: 1
+      popc: 1
+      glpa:
+        predefined: Gc001 # MGDG
+        count: 20
+    upper:
+      glpb:
+        predefined: Gg001 # GA2
+        count: 20
+  input: openmm
+  hmr: True
+  temperature: 310.15
+
+#membrane lipids examples
+
+default:
+  standard:
+    name: Sterols
+    lipids:
+      - chl1
+      - erg
+      - sito
+      - stig
+      - chsd
+      - chsp
+      - camp
+      - gcamp
+      - gsito
+      - gstig
+      - lano
+      - pgcamp
+      - pgsito
+      - pgstig
+  pa:
+    name: PA (phosphatidic acid) Lipids
+    lipids:
+      - dlpa
+      - dmpa
+      - dppa
+      - pspa
+      - dspa
+      - popa
+      - plpa
+      - sopa
+      - slpa
+      - dypa
+      - yopa
+      - dopa
+      - dgpa
+      - depa
+      - dnpa
+  pc:
+    name: PC (phosphatidylcholine) Lipids
+    lipids:
+      - ddpc
+      - dcpc
+      - dlpc
+      - dmpc
+      - dppc
+      - dspc
+      - pspc
+      - pypc
+      - popc
+      - plpc
+      - pepc
+      - sopc
+      - slpc
+      - drpc
+      - dypc
+      - yopc
+      - dopc
+      - oepc
+      - dupc
+      - dgpc
+      - depc
+      - dnpc
+      - dlipc
+  pe:
+    name: PE (phosphatidylethanolamine) Lipids
+    lipids:
+      - dlpe
+      - dmpe
+      - dppe
+      - pspe
+      - dspe
+      - pype
+      - pope
+      - plpe
+      - pepe
+      - sope
+      - slpe
+      - dype
+      - yope
+      - oype
+      - dope
+      - oepe
+      - dgpe
+      - depe
+      - dnpe
+      - dlipe
+  pg:
+    name: PG (phosphatidylglycerol) Lipids
+    lipids:
+      - dlpg
+      - dmpg
+      - dppg
+      - pspg
+      - dspg
+      - pypg
+      - popg
+      - plpg
+      - sopg
+      - slpg
+      - dypg
+      - dopg
+      - dgpg
+      - depg
+      - dnpg
+  ps:
+    name: PS (phosphatidylserine) Lipids
+    lipids:
+      - dlps
+      - dmps
+      - dpps
+      - psps
+      - dsps
+      - pops
+      - plps
+      - peps
+      - sops
+      - slps
+      - olps
+      - dyps
+      - yops
+      - dops
+      - oeps
+      - dgps
+      - deps
+      - dnps
+  pp:
+    name: PP (pyrophosphate) Lipids
+    lipids:
+      - popp1
+      - popp2
+      - popp3
+      - dopp1
+      - dopp2
+      - dopp3
+  inositol:
+    name: PI (phosphatidylinositol) Lipids
+    lipids:
+      - dmpi
+      - dmpi13
+      - dmpi14
+      - dmpi15
+      - dmpi24
+      - dmpi25
+      - dmpi2a
+      - dmpi2b
+      - dmpi2c
+      - dmpi2d
+      - dmpi33
+      - dmpi34
+      - dmpi35
+      - dppi
+      - pypi
+      - pspi
+      - popi
+      - popi13
+      - popi14
+      - popi15
+      - popi24
+      - popi25
+      - popi2a
+      - popi2b
+      - popi2c
+      - popi2d
+      - popi33
+      - popi34
+      - popi35
+      - plpi
+      - plpi13
+      - plpi14
+      - plpi15
+      - plpi24
+      - plpi25
+      - plpi2a
+      - plpi2b
+      - plpi2c
+      - plpi2d
+      - plpi33
+      - plpi34
+      - plpi35
+      - pnpi
+      - pnpi13
+      - pnpi14
+      - pnpi15
+      - pnpi24
+      - pnpi25
+      - pnpi2a
+      - pnpi2b
+      - pnpi2c
+      - pnpi2d
+      - pnpi33
+      - pnpi34
+      - pnpi35
+      - slpi
+      - sapi
+      - sapi13
+      - sapi14
+      - sapi15
+      - sapi24
+      - sapi25
+      - sapi2a
+      - sapi2b
+      - sapi2c
+      - sapi2d
+      - sapi33
+      - sapi34
+      - sapi35
+      - sdpi
+      - dlipi
+      - linpi
+  cardiolipin:
+    name: CL (cardiolipin) Lipids
+    lipids:
+      - tmcl1
+      - tmcl2
+      - pmcl1
+      - pmcl2
+      - paicl2
+      - pvcl2
+      - pocl1
+      - pocl2
+      - tycl1
+      - tycl2
+      - tocl1
+      - tocl2
+      - loacl1
+      - loacl2
+      - loccl1
+      - loccl2
+      - tlcl1
+      - tlcl2
+      - lnccl1
+      - lnccl2
+      - lnacl1
+      - lnacl2
+      - lndcl1
+      - lndcl2
+      - lnbcl1
+      - lnbcl2
+  dag:
+    name: DAG (diacylglycerol) Lipids
+    lipids:
+      - dlgl
+      - dmgl
+      - dpgl
+      - dsgl
+      - pogl
+      - plgl
+      - sogl
+      - slgl
+      - sagl
+      - sdgl
+      - dygl
+      - dogl
+      - dggl
+      - degl
+      - dngl
+      - dtgl
+      - tigl
+      - digl
+      - llgl
+      - dagl
+  tag:
+    name: TAG (triacylglycerol) Lipids
+    lipids:
+      - lostg
+      - oootg
+      - opotg
+      - pootg
+      - postg
+      - sootg
+      - spotg
+      - ppptg
+      - ooltg
+      - poltg
+      - ppltg
+      - plltg
+      - olltg
+      - llltg
+      - soltg
+      - slltg
+      - psltg
+      - llntg
+      - plntg
+      - olntg
+      - pontg
+      - oontg
+      - snltg
+      - slntg
+      - onntg
+      - lnntg
+      - ppntg
+      - ppotg
+      - pnntg
+      - psotg
+      - nnntg
+      - sontg
+      - platg
+      - slatg
+      - olatg
+      - onatg
+      - llatg
+      - llgtg
+      - slgtg
+      - sngtg
+      - olgtg
+  tap:
+    name: TAP (trimethylammonium propane) & DAP/DMA (dimethylamino) Lipids
+    lipids:
+      - dmtap
+      - dptap
+      - dotap
+      - dstap
+      - dltap
+      - dmdap
+      - dmdaph
+      - dpdap
+      - dpdaph
+      - dsdap
+      - dsdaph
+      - dodap
+      - dodaph
+      - dldap
+      - dldaph
+      - dmdma
+      - dmdmah
+      - dpdma
+      - dpdmah
+      - dsdma
+      - dsdmah
+      - dodma
+      - dodmah
+      - dldma
+      - dldmah
+      - dmkc1
+      - dmkc1h
+      - dpkc1
+      - dpkc1h
+      - dskc1
+      - dskc1h
+      - dokc1
+      - dokc1h
+      - dlkc1
+      - dlkc1h
+      - dmkc2
+      - dmkc2h
+      - dpkc2
+      - dpkc2h
+      - dskc2
+      - dskc2h
+      - dokc2
+      - dokc2h
+      - dlkc2
+      - dlkc2h
+      - dmmc3
+      - dmmc3h
+      - dpmc3
+      - dpmc3h
+      - dsmc3
+      - dsmc3h
+      - domc3
+      - domc3h
+      - dlmc3
+      - dlmc3h
+  pufa:
+    name: PUFA (polyunsaturated fatty acid) Esterified Lipids
+    lipids:
+      - plepa
+      - plepc
+      - plepe
+      - plepg
+      - pleps
+      - papa
+      - papc
+      - pape
+      - papg
+      - paps
+      - pdopc
+      - pdope
+      - dtpa
+      - sapa
+      - sapc
+      - sape
+      - sapg
+      - saps
+      - sdpa
+      - sdpc
+      - sdpe
+      - sdpg
+      - sdps
+      - llpa
+      - llpc
+      - llpe
+      - llpg
+      - llps
+      - lypg
+      - tipa
+      - dipa
+      - dapa
+      - dapc
+      - dape
+      - dapg
+      - daps
+      - ddopc
+      - ddope
+      - ddops
+      - tspc
+  sphingo:
+    name: SM (sphingo) and Ceramide Lipids
+    lipids:
+      - dsm
+      - tsm
+      - psm
+      - ssm
+      - asm
+      - bsm
+      - 23sm
+      - lsm
+      - osm
+      - nsm
+      - cer3
+      - cer6
+      - cer160
+      - cer180
+      - cer181
+      - cer200
+      - cer220
+      - cer240
+      - cer241
+      - cer3e
+  ee:
+    name: Ether/Plasmalogen Lipids
+    lipids:
+      - dhpce
+      - dmpce
+      - dmpee
+      - dopce
+      - dopee
+      - dppee
+      - popce
+      - popee
+      - pla18
+      - pla20
+      - plc18
+      - plc20
+      - plc22
+  bacterial:
+    name: Bacterial Lipids
+    lipids:
+      - maipc
+      - maipg
+      - maipe
+      - aipc
+      - aipg
+      - aipe
+      - qmpe
+      - paipc
+      - paipg
+      - paipe
+      - appc
+      - ippc
+      - pmpe
+      - pmpg
+      - phpc
+      - pppe
+      - pvpe
+      - pvpg
+      - dppgk
+  endosomal:
+    name: Endosomal Lipids
+    lipids:
+      - bmgp
+  archaeal:
+    name: Ubiquinone/Ubiquinol & Archaeal Lipids
+    lipids:
+      - pgmar
+      - arol
+      - pgar
+      - pear
+      - men7
+      - men8
+      - men9
+      - mkol8
+      - arcl2
+      - uq1
+      - uq2
+      - uq3
+      - uq4
+      - uq5
+      - uq6
+      - uq7
+      - uq8
+      - uq9
+      - uq10
+      - uqol1
+      - uqol2
+      - uqol3
+      - uqol4
+      - uqol5
+      - uqol6
+      - uqol7
+      - uqol8
+      - uqol9
+      - uqol10
+  fattyacids:
+    name: Fatty Acids
+    lipids:
+  # deprotonated
+      - lau
+      - myr
+      - pal
+      - ste
+      - ara
+      - beh
+      - tri
+      - lign
+      - myro
+      - palo
+      - hta
+      - ole
+      - lin
+      - alin
+      - sda
+      - gla
+      - eico
+      - eda
+      - mea
+      - dgla
+      - ete
+      - eta
+      - epa
+      - aran
+      - hpa
+      - eru
+      - dda
+      - adr
+      - dpt
+      - dpa
+      - dha
+      - ner
+      - tta
+      - tpt
+      - tpa
+      - tha
+  # protonated
+      - laup
+      - myrp
+      - palp
+      - step
+      - arap
+      - behp
+      - trip
+      - lignp
+      - myrop
+      - palop
+      - htap
+      - olep
+      - linp
+      - alinp
+      - sdap
+      - glap
+      - eicop
+      - edap
+      - meap
+      - dglap
+      - etep
+      - etap
+      - epap
+      - aranp
+      - hpap
+      - erup
+      - ddap
+      - adrp
+      - dptp
+      - dpap
+      - dhap
+      - nerp
+      - ttap
+      - tptp
+      - tpap
+      - thap
+  detergent:
+    name: Detergents
+  # Detergents (Zwitterionic)
+    type1:
+      name: Ammonio Propanesulfonates
+      lipids:
+        - sb3-10
+        - sb3-12
+        - sb3-14
+        - chaps
+        - chapso
+    type2:
+      name: N,N,-Dimethylglycines
+      lipids:
+        - ddmg
+        - domg
+    type3:
+      name: Amine Oxides
+      lipids:
+        - ddao
+        - udao
+        - ldao
+        - lapao
+        - tripao
+    type4:
+      name: Phosphocholines
+      lipids:
+        - fos10
+        - fos12
+        - fos13
+        - fos14
+        - fos15
+        - fos16
+        - ufos10
+        - lpc12
+        - lpc14
+        - lpc16
+        - fois9
+        - fois11
+        - c6dhpc
+        - c7dhpc
+        - cyfos3
+        - cyfos4
+        - cyfos5
+        - cyfos6
+        - cyfos7
+  # Detergents (Ionic)
+    type5:
+      name: Sulfates
+      lipids:
+        - sds
+    type6:
+      name: Cetrimonium Bromide
+      lipids:
+        - ctb10
+        - ctb11
+        - ctb12
+        - ctb13
+        - ctb14
+        - ctb15
+        - ctb16
+    type7:
+      name: Glycerol
+      lipids:
+        - gms1
+        - gms2
+        - mln1
+        - mln2
+    type8:
+      name: GTM & TZM
+      lipids:
+        - mgtm10
+        - egtm10
+        - mgtm11
+        - egtm11
+        - tzmh9
+        - tzmh10
+        - tzme9
+        - tzme10
+    type9:
+      name: Phosphotidylglycerols
+      lipids:
+        - lmpg
+        - lppg
+    type10:
+      name: Amine Hydroxyls
+      lipids:
+        - ddaop
+        - udaop
+        - ldaop
+        - lapaop
+        - trpaop
+  # Detergents (Non-ionic)
+    type11:
+      name: Alkyl PEG
+      lipids:
+        - c6eg3
+        - c6eg4
+        - c6eg5
+        - c7eg4
+        - c7eg5
+        - c8eg4
+        - c8eg5
+        - c8eg6
+        - c10eg5
+        - c10eg6
+        - c10eg9
+        - c12eg7
+        - c12eg8
+        - c12eg9
+        - c12deg
+        - c13eg8
+        - nidp40
+        - tx100
+        - tx114
+    type12:
+      name: Glucosides
+      lipids:
+        - aog
+        - bog
+        - ang
+        - bng
+        - adg
+        - bdg
+        - addg
+        - bddg
+        - acy3g
+        - bcy3g
+        - amhcg
+        - bmhcg
+    type13:
+      name: Maltosides
+      lipids:
+        - aom
+        - bom
+        - anm
+        - bnm
+        - adm
+        - bdm
+        - audm
+        - budm
+        - a2udm
+        - b2udm
+        - addm
+        - bddm
+        - admhm
+        - bdmhm
+        - appm
+        - bppm
+        - atm
+        - btm
+        - acy3m
+        - bcy3m
+        - acy4m
+        - bcy4m
+        - acy5m
+        - bcy5m
+        - acy6m
+        - bcy6m
+        - acy7m
+        - bcy7m
+    type14:
+      name: Acyclic Glucosides
+      lipids:
+        - nheg
+        - dheg
+        - nmg
+        - dmg
+    type15:
+      name: Neopentyl Glycols
+      lipids:
+        - smdd
+        - bbphg
+        - bbcyg
+        - bogng
+        - botgng
+        - boing
+        - blmng
+        - bdmng
+        - c5mng
+        - c6mng
+    type16:
+      name: Thio Glucosides
+      lipids:
+        - ahtg
+        - bhtg
+        - aotg
+        - botg
+    type17:
+      name: Thio Maltosides
+      lipids:
+        - aotm
+        - botm
+        - antm
+        - bntm
+        - adtm
+        - bdtm
+        - audtm
+        - budtm
+        - addtm
+        - bddtm
+micelle:
+  # Detergents (Zwitterionic)
+  type1:
+    name: Ammonio Propanesulfonates
+    lipids:
+      - sb3-10
+      - sb3-12
+      - sb3-14
+      - chaps
+      - chapso
+  type2:
+    name: N,N,-Dimethylglycines
+    lipids:
+      - ddmg
+      - domg
+  type3:
+    name: Amine Oxides
+    lipids:
+      - ddao
+      - udao
+      - ldao
+      - lapao
+      - tripao
+  type4:
+    name: Phosphocholines
+    lipids:
+      - fos10
+      - fos12
+      - fos13
+      - fos14
+      - fos15
+      - fos16
+      - ufos10
+      - lpc12
+      - lpc14
+      - fois9
+      - fois11
+      - c6dhpc
+      - c7dhpc
+      - cyfos3
+      - cyfos4
+      - cyfos5
+      - cyfos6
+      - cyfos7
+  # Detergents (Ionic)
+  type5:
+    name: Sulfates
+    lipids:
+      - sds
+  type6:
+    name: Cetrimonium Bromide
+    lipids:
+      - ctb10
+      - ctb11
+      - ctb12
+      - ctb13
+      - ctb14
+      - ctb15
+      - ctb16
+  type7:
+    name: Glycerol
+    lipids:
+      - gms1
+      - gms2
+      - mln1
+      - mln2
+  type8:
+    name: GTM & TZM
+    lipids:
+      - mgtm10
+      - egtm10
+      - mgtm11
+      - egtm11
+      - tzmh9
+      - tzmh10
+      - tzme9
+      - tzme10
+  type9:
+    name: Phosphotidylglycerols
+    lipids:
+      - lmpg
+      - lppg
+  type10:
+    name: Amine Hydroxyls
+    lipids:
+      - ddaop
+      - udaop
+      - ldaop
+      - lapaop
+      - trpaop
+  # Detergents (Non-ionic)
+  type11:
+    name: Alkyl PEG
+    lipids:
+      - c6eg3
+      - c6eg4
+      - c6eg5
+      - c7eg4
+      - c7eg5
+      - c8eg4
+      - c8eg5
+      - c8eg6
+      - c10eg5
+      - c10eg6
+      - c10eg9
+      - c12eg7
+      - c12eg8
+      - c12eg9
+      - c12deg
+      - c13eg8
+      - nidp40
+      - tx100
+      - tx114
+  type12:
+    name: Glucosides
+    lipids:
+      - aog
+      - bog
+      - ang
+      - bng
+      - adg
+      - bdg
+      - addg
+      - bddg
+      - acy3g
+      - bcy3g
+      - amhcg
+      - bmhcg
+  type13:
+    name: Maltosides
+    lipids:
+      - aom
+      - bom
+      - anm
+      - bnm
+      - adm
+      - bdm
+      - audm
+      - budm
+      - a2udm
+      - b2udm
+      - addm
+      - bddm
+      - admhm
+      - bdmhm
+      - appm
+      - bppm
+      - atm
+      - btm
+      - acy3m
+      - bcy3m
+      - acy4m
+      - bcy4m
+      - acy5m
+      - bcy5m
+      - acy6m
+      - bcy6m
+      - acy7m
+      - bcy7m
+  type14:
+    name: Acyclic Glucosides
+    lipids:
+      - nheg
+      - dheg
+      - nmg
+      - dmg
+  type15:
+    name: Neopentyl Glycols
+    lipids:
+      - smdd
+      - bbphg
+      - bbcyg
+      - bogng
+      - botgng
+      - boing
+      - blmng
+      - bdmng
+      - c5mng
+      - c6mng
+  type16:
+    name: Thio Glucosides
+    lipids:
+      - ahtg
+      - bhtg
+      - aotg
+      - botg
+  type17:
+    name: Thio Maltosides
+    lipids:
+      - aotm
+      - botm
+      - antm
+      - bntm
+      - adtm
+      - bdtm
+      - audtm
+      - budtm
+      - addtm
+      - bddtm
+  type18:
+    name: Cholesteryl HemiSuccinate
+    lipids:
+      - chsd
+      - chsp
+
+

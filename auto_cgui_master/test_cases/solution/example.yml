@@ -1,0 +1,7 @@
+- label: 1UBQ with two staples in solution
+  staples:
+    - RMETA3 PROA 1 PROA 3
+    - META5 PROA 25 PROA 29
+  pdb: 1ubq.pdb
+  input: namd
+  hmr: True
