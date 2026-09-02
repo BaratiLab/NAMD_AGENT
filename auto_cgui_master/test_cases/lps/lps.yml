@@ -1,3 +1,0 @@
-base: lps/basic
-steps:
-  - wait_text: Computed Energy

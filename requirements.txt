@@ -1,0 +1,41 @@
+# Conda requirements (MatchSpec format), tested on linux-64.
+#
+# Create the environment with:
+#   conda create --name namd-agent --override-channels \
+#     --channel acellera --channel conda-forge --file requirements.txt
+#
+# This is intentionally not a pip requirements file.
+
+conda-forge::python==3.10.20
+acellera::htmd==2.7.0
+acellera::moleculekit==1.12.0
+conda-forge::mcp==1.27.0
+
+# MD, chemistry, and rendering tools used by the server
+conda-forge::openmm==8.5.1
+conda-forge::rdkit==2025.03.6
+conda-forge::openbabel==3.1.1
+conda-forge::pymol-open-source==3.1.0
+conda-forge::ffmpeg==8.0.0
+conda-forge::mdtraj==1.10.3
+conda-forge::parmed==4.3.1
+
+# Direct scientific and support dependencies
+conda-forge::numpy==2.2.6
+conda-forge::scipy==1.15.2
+conda-forge::pandas==2.3.3
+conda-forge::scikit-learn==1.7.2
+conda-forge::matplotlib==3.10.9
+conda-forge::plotly==6.6.0
+conda-forge::biopython==1.87
+conda-forge::networkx==3.4.2
+conda-forge::pillow==12.0.0
+conda-forge::pyyaml==6.0.3
+conda-forge::jinja2==3.1.6
+conda-forge::natsort==8.4.0
+conda-forge::tqdm==4.67.3
+conda-forge::requests==2.33.1
+conda-forge::psutil==7.2.2
+conda-forge::joblib==1.5.3
+conda-forge::threadpoolctl==3.6.0
+conda-forge::packaging==26.2
